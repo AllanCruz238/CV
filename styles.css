@@ -199,3 +199,12 @@ footer{text-align:center;padding:40px 24px;border-top:1px solid var(--border);co
   footer{display:none}
   .container{max-width:100%;padding:0 12px}
 }
+
+
+/* ===== EMAIL ESTÁTICO ===== */
+.email-static { cursor: default; }
+.email-text { 
+  font-size: 0.82rem; 
+  color: var(--accent);
+  letter-spacing: 0.01em;
+}

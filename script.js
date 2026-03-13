@@ -122,34 +122,3 @@ document.querySelectorAll('.timeline-card,.info-card,.lang-card,.contact-card').
 });
 
 console.log('%c Allan Cruz · CV Web · 2026 ','background:#4FC3F7;color:#0a0e17;font-weight:800;font-size:14px;padding:6px 12px;border-radius:4px;');
-
-/* COPIAR EMAIL AL PORTAPAPELES */
-// Email armado por JS para evitar filtros de spam/Cloudflare
-const _e = ['allanjcruzp04', 'gmail', 'com'].join(String.fromCharCode(64, 46).split('').reduce((a,c,i)=>a+(i===0?c:''),'')); 
-// Más simple:
-const emailAddr = 'allanjcruzp04' + String.fromCharCode(64) + 'gmail.com';
-const emailDisplay = document.getElementById('email-display');
-if (emailDisplay) emailDisplay.textContent = emailAddr;
-
-const copyBtn = document.getElementById('copy-email');
-const toast   = document.getElementById('copy-toast');
-if (copyBtn && toast) {
-  copyBtn.addEventListener('click', () => {
-    const copy = () => {
-      toast.classList.add('show');
-      setTimeout(() => toast.classList.remove('show'), 2500);
-    };
-    navigator.clipboard ? 
-      navigator.clipboard.writeText(emailAddr).then(copy).catch(() => {
-        const el = document.createElement('textarea');
-        el.value = emailAddr; document.body.appendChild(el);
-        el.select(); document.execCommand('copy');
-        document.body.removeChild(el); copy();
-      }) : (() => {
-        const el = document.createElement('textarea');
-        el.value = emailAddr; document.body.appendChild(el);
-        el.select(); document.execCommand('copy');
-        document.body.removeChild(el); copy();
-      })();
-  });
-}
