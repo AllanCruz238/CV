@@ -48,16 +48,17 @@ function typeEffect() {
 }
 setTimeout(typeEffect, 800);
 
-/* 4. FADE-IN */
+/* 4. FADE-IN AL SCROLL */
 function activate(el) {
   el.classList.add('visible');
   el.querySelectorAll('.skill-fill').forEach(f => f.style.width = f.dataset.width + '%');
 }
 const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) { activate(e.target); observer.unobserve(e.target); } });
+  entries.forEach(e => {
+    if (e.isIntersecting) { activate(e.target); observer.unobserve(e.target); }
+  });
 }, { threshold: 0, rootMargin: '0px 0px -30px 0px' });
 document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-/* Fallback 2s */
 setTimeout(() => document.querySelectorAll('.fade-in:not(.visible)').forEach(activate), 2000);
 
 /* 5. BACK TO TOP */
@@ -65,13 +66,13 @@ const backToTop = document.getElementById('back-to-top');
 window.addEventListener('scroll', () => backToTop && backToTop.classList.toggle('visible', window.scrollY > 350));
 backToTop && backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-/* 6. MODAL */
+/* 6. MODAL LENGUAJES */
 const langTrigger = document.getElementById('lang-trigger');
 const langModal = document.getElementById('lang-modal');
 const modalClose = document.getElementById('modal-close');
 if (langTrigger && langModal && modalClose) {
   const open  = () => { langModal.style.display = 'flex'; document.body.style.overflow = 'hidden'; };
-  const close = () => { langModal.style.display = 'none';  document.body.style.overflow = ''; };
+  const close = () => { langModal.style.display = 'none'; document.body.style.overflow = ''; };
   langTrigger.addEventListener('click', open);
   modalClose.addEventListener('click', close);
   langModal.addEventListener('click', e => { if (e.target === langModal) close(); });
@@ -92,12 +93,18 @@ const pts = Array.from({length: 55}, () => ({
   ctx.clearRect(0,0,canvas.width,canvas.height);
   pts.forEach(p => {
     p.x+=p.vx; p.y+=p.vy;
-    if(p.x<0||p.x>canvas.width||p.y<0||p.y>canvas.height){p.x=Math.random()*canvas.width;p.y=Math.random()*canvas.height;}
-    ctx.beginPath();ctx.arc(p.x,p.y,p.s,0,Math.PI*2);ctx.fillStyle=`rgba(79,195,247,${p.a})`;ctx.fill();
+    if(p.x<0||p.x>canvas.width||p.y<0||p.y>canvas.height){
+      p.x=Math.random()*canvas.width; p.y=Math.random()*canvas.height;
+    }
+    ctx.beginPath(); ctx.arc(p.x,p.y,p.s,0,Math.PI*2);
+    ctx.fillStyle=`rgba(79,195,247,${p.a})`; ctx.fill();
   });
-  for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){
+  for(let i=0;i<pts.length;i++) for(let j=i+1;j<pts.length;j++){
     const d=Math.hypot(pts[i].x-pts[j].x,pts[i].y-pts[j].y);
-    if(d<130){ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.strokeStyle=`rgba(79,195,247,${(1-d/130)*.15})`;ctx.lineWidth=.7;ctx.stroke();}
+    if(d<130){
+      ctx.beginPath(); ctx.moveTo(pts[i].x,pts[i].y); ctx.lineTo(pts[j].x,pts[j].y);
+      ctx.strokeStyle=`rgba(79,195,247,${(1-d/130)*.15})`; ctx.lineWidth=.7; ctx.stroke();
+    }
   }
   requestAnimationFrame(anim);
 })();
@@ -106,7 +113,7 @@ const pts = Array.from({length: 55}, () => ({
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
     const t = document.querySelector(a.getAttribute('href'));
-    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});}
+    if(t){ e.preventDefault(); t.scrollIntoView({behavior:'smooth'}); }
   });
 });
 
